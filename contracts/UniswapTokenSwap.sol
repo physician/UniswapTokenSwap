@@ -22,7 +22,7 @@ contract UniswapTokenSwap {
 
     function convertETHtoExactERC20(address _token, uint _amount) public payable {
         uint deadline = block.timestamp + 15;
-        uint256 amount = _amount * 1e18;
+        uint256 amount = _amount;
         address[] memory path = getPathFromETHtoERC20(_token);
         uniswapRouter.swapETHForExactTokens{value: msg.value}(amount, path, address(this), deadline);
 
@@ -32,8 +32,8 @@ contract UniswapTokenSwap {
 
     function convertExactERC20toETH(address _token, uint _amountIn, uint _amountOutMin) public payable {
         uint deadline = block.timestamp + 15;
-        uint256 amountIn = _amountIn * 1e18;
-        uint256 amountOutMin = _amountOutMin * 1e18;
+        uint256 amountIn = _amountIn;
+        uint256 amountOutMin = _amountOutMin;
         IERC20 token = IERC20(_token);
         token.approve(UNISWAP_ROUTER_ADDRESS, amountIn);
         address[] memory path = getPathFromERC20toETH(_token);
@@ -42,8 +42,8 @@ contract UniswapTokenSwap {
 
     function convertExactERC20toERC20(address _tokenIn, uint _amountIn, address _tokenOut, uint _amountOutMin) public payable {
         uint deadline = block.timestamp + 15;
-        uint256 amountIn = _amountIn * 1e18;
-        uint256 amountOutMin = _amountOutMin * 1e18;
+        uint256 amountIn = _amountIn;
+        uint256 amountOutMin = _amountOutMin;
         IERC20 tokenIn = IERC20(_tokenIn);
         tokenIn.approve(UNISWAP_ROUTER_ADDRESS, amountIn);
         address[] memory path = getPathFromERC20toERC20(_tokenIn, _tokenOut);
@@ -52,8 +52,8 @@ contract UniswapTokenSwap {
 
     function convertERC20toExactERC20(address _tokenIn, uint _amountInMax, address _tokenOut, uint _amountOut) public payable {
         uint deadline = block.timestamp + 15;
-        uint256 amountInMax = _amountInMax * 1e18;
-        uint256 amountOut = _amountOut * 1e18;
+        uint256 amountInMax = _amountInMax;
+        uint256 amountOut = _amountOut;
         IERC20 tokenIn = IERC20(_tokenIn);
         tokenIn.approve(UNISWAP_ROUTER_ADDRESS, amountInMax);
         address[] memory path = getPathFromERC20toERC20(_tokenIn, _tokenOut);
@@ -61,7 +61,7 @@ contract UniswapTokenSwap {
     }
 
     function getEstimatedETHforERC20(address _token, uint _amount) public view returns (uint) {
-        uint256 amount = _amount * 1e18;
+        uint256 amount = _amount;
         uint[] memory estimated = uniswapRouter.getAmountsIn(amount, getPathFromETHtoERC20(_token));
         return estimated[0];
     }
